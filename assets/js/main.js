@@ -14,10 +14,7 @@
 11. Studion Video Carousel
 12. Sticky Header
 13. Boo Skolan Section Slider.
-
-
-
- ****************************************************/
+****************************************************/
 (function ($) {
   ('use strict');
 
