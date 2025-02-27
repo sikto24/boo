@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Summary of render_purchase_flow_section
  * for Purchase Flow Section
@@ -47,9 +44,40 @@ function render_purchase_flow_section( $atts = [] ) {
 	$private_variable_desc = get_theme_mod( 'boo_purchase_flow_field_variable_desc', 'Elpriset som visas här baseras alltid på förra månadens elpris, din angivna förbrukning och vart du bor.' );
 	$private_fixed_desc = get_theme_mod( 'boo_purchase_flow_field_fixed_desc', 'Elpriset som visas här baseras alltid på förra månadens elpris, din angivna förbrukning och vart du bor. Ett bundet elavtal får du samma elpris oavsett priset på marknaden, fakturan ändras beroende på hur mycket el du använder.' );
 
+	// Bollet Data Lists
+
+	// Private Lists
+	$private_portfolio_desc_list = get_theme_mod( 'boo_purchase_flow_field_portfolio_desc_list', 'Stabilt elpris över tid
+     Styra din förbrukning i vår app' );
+	$private_variable_desc_list = get_theme_mod( 'boo_purchase_flow_field_variable_desc_list', 'Styra din förbrukning i vår app 
+    3 veckors uppsägningstid' );
+	$private_fixed_desc_list = get_theme_mod( 'boo_purchase_flow_field_fixed_desc_list', 'Välj 1, 2 eller 3 år
+    Låg risk' );
+
+
+	// Business Lists
+	$private_portfolio_desc_list_business = get_theme_mod( 'boo_purchase_flow_field_portfolio_desc_list_business', 'Stabilt elpris över tid
+	 Styra din förbrukning i vår app' );
+	$private_variable_desc_list_business = get_theme_mod( 'boo_purchase_flow_field_variable_desc_list_business', 'Styra din förbrukning i vår app 
+	3 veckors uppsägningstid' );
+	$private_fixed_desc_list_business = get_theme_mod( 'boo_purchase_flow_field_fixed_desc_list_business', 'Välj 1, 2 eller 3 år
+	Låg risk' );
+
+	$private_portfolio_desc_list_data = explode( "\n", $private_portfolio_desc_list );
+	$private_variable_desc_list_data = explode( "\n", $private_variable_desc_list );
+	$private_fixed_desc_list_data = explode( "\n", $private_fixed_desc_list );
+
+	$private_portfolio_desc_list_business_data = explode( "\n", $private_portfolio_desc_list_business );
+	$private_variable_desc_list_business_data = explode( "\n", $private_variable_desc_list_business );
+	$private_fixed_desc_list_business_data = explode( "\n", $private_fixed_desc_list_business );
 
 
 	// Assign Customizer Data For Private
+
+	// Lists Data
+	$private_lists_data = ( 'true' === $boo_b2b ) ? $private_portfolio_desc_list_data : $private_portfolio_desc_list_business_data;
+	$variable_lists_data = ( 'true' === $boo_b2b ) ? $private_variable_desc_list_data : $private_variable_desc_list_business_data;
+	$fixed_lists_data = ( 'true' === $boo_b2b ) ? $private_fixed_desc_list_data : $private_fixed_desc_list_business_data;
 	// Title
 	$business_portfolio_title = get_theme_mod( 'boo_purchase_flow_field_portfolio_title_business', 'Boo–portföljen' );
 	$business_variable_title = get_theme_mod( 'boo_purchase_flow_field_variable_title_business', 'Rörligt elpris' );
@@ -162,9 +190,9 @@ function render_purchase_flow_section( $atts = [] ) {
 							<span class="checkmark">
 								<i class="fa-solid fa-circle-notch spin"></i>
 							</span>
-							<p id="postcode-error" class="error-validation bread-small pt-1 hidden">Ange ett giltigt postnummer</p>
 						</div>
-						
+						<p id="postcode-error" class="error-validation bread-small pt-1 hidden">Ange ett giltigt postnummer
+						</p>
 					</div>
 
 					<?php if ( 'true' === $boo_b2b ) : ?>
@@ -211,12 +239,11 @@ function render_purchase_flow_section( $atts = [] ) {
 						<div class="b2b-slider-section">
 							<div id="b2b-slider-section">
 								<div class="mb-2">
-									<!-- <label for="annual-consumption-small"
+									<label for="annual-consumption-small"
 										class="d-flex align-items-center gap-2 mb-4 d-relative">
 										<input type="radio" value="small" id="annual-consumption-small"
 											name="annual-consumption-option" checked>
-										0 - 80,000 kW/år</label> -->
-									<label for="annual-consumption-small" class="form-label card-item-label">Ange årsförbrukning</label>
+										0 - 80000 kWh/år</label>
 								</div>
 								<div class="position-relative w-100">
 									<input type="range" id="annual-consumtion" class="custom-range-slider" min="0" max="80000"
@@ -248,13 +275,13 @@ function render_purchase_flow_section( $atts = [] ) {
 								<label for="annual-consumption-medium" class="d-flex align-items-center gap-2 mb-4">
 									<input type="radio" value="medium" id="annual-consumption-medium"
 										name="annual-consumption-option">
-									80,001 - 399,999 kW/år</label>
+									80001 - 399999 kWh/år</label>
 							</div>
 							<div class="mb-2">
 								<label for="annual-consumption-large" class="d-flex align-items-center gap-2 mb-4">
 									<input type="radio" value="large" id="annual-consumption-large"
 										name="annual-consumption-option">
-									Mer än 400,000 kW/år</label>
+									Mer än 400000 kWh/år</label>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -323,8 +350,11 @@ function render_purchase_flow_section( $atts = [] ) {
 											</p>
 										</div>
 										<ul>
-											<li>Stabilt elpris över tid</li>
-											<li>Styr din förbrukning i vår app</li>
+											<?php if ( ! empty( $private_lists_data ) ) :
+												foreach ( $private_lists_data as $list ) :
+													?>
+													<li><?php echo esc_html( $list ); ?></li>
+												<?php endforeach; endif; ?>
 										</ul>
 										<div class="d-flex align-items-center gap-2 pb-3">
 											<a href="#">Läs mer om
@@ -355,7 +385,6 @@ function render_purchase_flow_section( $atts = [] ) {
 											<img src="<?php echo get_template_directory_uri() ?>/flow/assets/info.svg" alt="Price"
 												class="img-fluid">
 											<p>Fyll i kalkylatorn till vänster för att se ditt pris</p>
-						
 										</div>
 
 										<!-- Price info -->
@@ -400,8 +429,11 @@ function render_purchase_flow_section( $atts = [] ) {
 											</p>
 										</div>
 										<ul>
-											<li>Styr din förbrukning</li>
-											<li>3 veckors uppsägningstid</li>
+											<?php if ( ! empty( $variable_lists_data ) ) :
+												foreach ( $variable_lists_data as $list ) :
+													?>
+													<li><?php echo esc_html( $list ); ?></li>
+												<?php endforeach; endif; ?>
 										</ul>
 										<div class="d-flex align-items-center gap-2 pb-3">
 											<a href="#">Läs mer om
@@ -448,8 +480,7 @@ function render_purchase_flow_section( $atts = [] ) {
 												<p class="total-category-price"></p>
 											</div>
 											<button id="select-variable-package-button" class="button-outline">Välj
-												<?php echo esc_html__( $boo_purchase_flow_field_variable_title, 'boo-energy' ); ?>
-												elpris</button>
+												<?php echo esc_html__( $boo_purchase_flow_field_variable_title, 'boo-energy' ); ?></button>
 										</div>
 
 									</div>
@@ -475,8 +506,11 @@ function render_purchase_flow_section( $atts = [] ) {
 											</p>
 										</div>
 										<ul>
-											<li>Välj 1, 2 eller 3 år</li>
-											<li>Låg risk</li>
+											<?php if ( ! empty( $fixed_lists_data ) ) :
+												foreach ( $fixed_lists_data as $list ) :
+													?>
+													<li><?php echo esc_html( $list ); ?></li>
+												<?php endforeach; endif; ?>
 										</ul>
 										<div class="d-flex align-items-center gap-2 pb-3">
 											<a href="#">Läs mer om
@@ -559,20 +593,10 @@ function render_purchase_flow_section( $atts = [] ) {
 				<button class="contact-button fw-bold" style="width: fit-content;">Kontakta oss</button>
 			</div>
 			<div class="consumption-medium-section col-lg-8 hidden">
-				<h2 class="h2-large">Kontakta oss</h2>
-				<p class="bread-large fw-normal" style="line-height: 33px;">Förbrukar ni mer är 80.000 kW per år? Vi hjälper
-					er att hitta det bästa elavtalet för er. Kontakta oss för personlig rådgivning.</p>
-				<div class="lime-form">
-					<lime-form form-id="BuIFNdzgnLga4arbT9aT"></lime-form>
-				</div>
+				<lime-form form-id="BuIFNdzgnLga4arbT9aT"></lime-form>
 			</div>
 			<div class="consumption-large-section col-lg-8 hidden">
-				<h2 class="h2-large">Kontakta oss</h2>
-				<p class="bread-large fw-normal" style="line-height: 33px;">Förbrukar ni mer är 80.000 kW per år? Vi hjälper
-					er att hitta det bästa elavtalet för er. Kontakta oss för personlig rådgivning.</p>
-				<div class="lime-form">
-					<lime-form form-id="8lZDpoPqp5LQ1hc8yLVv"></lime-form>
-				</div>
+				<lime-form form-id="8lZDpoPqp5LQ1hc8yLVv"></lime-form>
 			</div>
 		</div>
 
