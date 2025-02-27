@@ -26,7 +26,7 @@ $boo_purchase_flow_field_four_step_title_business = get_theme_mod( 'boo_purchase
 							<div class="step-number-container">
 								1
 							</div>
-							<h6><?php echo esc_html__( 'Fyll i dina uppgifter', 'boo-energy' ); ?></h6>
+							<h6><?php echo esc_html__( $boo_purchase_flow_field_frist_step_title_business, 'boo-energy' ); ?></h6>
 						</div>
 						<img src="<?php echo get_template_directory_uri() ?>/flow/assets/pencil_icon.svg"
 							alt="Edit icon" class="step-edit-icon">
@@ -36,11 +36,11 @@ $boo_purchase_flow_field_four_step_title_business = get_theme_mod( 'boo_purchase
 					<div class="pt-3 step-content">
 						<div class="form-group">
 							<label for="person-number"
-								class="form-label"><?php echo esc_html__( $boo_purchase_flow_field_frist_step_title_business, 'boo-energy' ); ?>
+								class="form-label"><?php echo esc_html__( 'Organisationsnummer', 'boo-energy' ); ?>
 								<span class="asterisk">*</span></label>
 							<div class="input-container">
 								<input type="text" class="form-control" id="person-number" name="person-number"
-									placeholder="ÅÅÅÅMMDD-XXXX" required>
+									placeholder="XXXXXXXX-XXXX" required>
 								<span class="checkmark">
 									<i class="fa-solid fa-check" style="color: #009A44;"></i>
 								</span>
