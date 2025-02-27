@@ -1,10 +1,24 @@
-// export const API_URL = "http://localhost:8000/api/web/v1/";
-export const API_URL =
-  "https://api.staging.boowebbackend.strativ-support.se/api/web/v1/";
-export const API_URL_V2 =
-  "https://api.staging.boowebbackend.strativ-support.se/api/web/v2/";
-// const API_KEY = "JRNR4Gp3.egcFSU9RZjCLbMUR2U7Qe1olDQcIpZss";
-const API_KEY = "Api-Key cpScLNYv.4L1oHlJtFLxcw4rdSpN0ZgqvsRCLxqRQ";
+let API_URL;
+let API_URL_V2;
+let API_KEY;
+
+const currentURL = window.location.href;
+const url = new URL(currentURL);
+const domain = url.hostname;
+
+if (domain === 'booenergi.se' || domain === 'prod.booenergi.se') {
+  API_URL = 'https://api.booenergi.se/api/web/v1/';
+  API_URL_V2 = 'https://api.booenergi.se/api/web/v2/';
+  API_KEY = 'Api-Key UZ2ehkpq.74zQQ3qK9B0nFxyQkPaVnW0mmdbDBJ2x';
+} else if (domain === 'staging.booenergi.se') {
+  API_URL = 'https://api.staging.booenergi.se/api/web/v1/';
+  API_URL_V2 = 'https://api.staging.booenergi.se/api/web/v2/';
+  API_KEY = 'Api-Key hEeAQDEa.IHfbL6z03FrXDsvfysrmFuCm4lthp4gp';
+} else {
+  API_URL = 'http://api.dev.staging.booenergi.se/api/web/v1/';
+  API_URL_V2 = 'http://api.dev.staging.booenergi.se/api/web/v2/';
+  API_KEY = 'Api-Key cpScLNYv.4L1oHlJtFLxcw4rdSpN0ZgqvsRCLxqRQ';
+}
 
 const headers = {
   "Content-Type": "application/json",
